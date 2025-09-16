@@ -4,34 +4,24 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { TaskHelpers } from "@/utils/taskHelpers";
-import { useToast } from "@/hooks/use-toast";
+import { TaskHelpers } from "@/utils/utils";
 import { Plus, Sparkles } from "lucide-react";
 
 interface TaskFormProps {
   onTaskCreate: (title: string, description: string) => void;
 }
 
-/**
- * Form component for creating new tasks
- */
 export const TaskForm = ({ onTaskCreate }: TaskFormProps) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate input
     const error = TaskHelpers.validateTask(title, description);
     if (error) {
-      toast({
-        title: "Validation Error",
-        description: error,
-        variant: "destructive",
-      });
+      alert(error);
       return;
     }
 
@@ -43,20 +33,10 @@ export const TaskForm = ({ onTaskCreate }: TaskFormProps) => {
       
       onTaskCreate(title, description);
       
-      // Reset form
       setTitle('');
       setDescription('');
       
-      toast({
-        title: "Task Created",
-        description: `"${title}" has been added to your board.`,
-      });
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to create task. Please try again.",
-        variant: "destructive",
-      });
     } finally {
       setIsLoading(false);
     }

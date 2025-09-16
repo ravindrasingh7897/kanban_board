@@ -2,20 +2,15 @@ import { Task } from '@/types/kanban';
 
 const STORAGE_KEY = 'kanban_tasks';
 
-/**
- * Storage utility for persisting tasks to localStorage
- */
+
 export class StorageUtil {
-  /**
-   * Load tasks from localStorage
-   */
+ 
   static loadTasks(): Task[] {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (!stored) return [];
       
       const tasks = JSON.parse(stored);
-      // Convert date strings back to Date objects
       return tasks.map((task: any) => ({
         ...task,
         createdAt: new Date(task.createdAt)
@@ -26,9 +21,7 @@ export class StorageUtil {
     }
   }
 
-  /**
-   * Save tasks to localStorage
-   */
+  
   static saveTasks(tasks: Task[]): void {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
@@ -37,9 +30,7 @@ export class StorageUtil {
     }
   }
 
-  /**
-   * Clear all tasks from storage
-   */
+
   static clearTasks(): void {
     try {
       localStorage.removeItem(STORAGE_KEY);

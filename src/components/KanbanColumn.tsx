@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Task, TaskStatus } from "@/types/kanban";
 import { TaskCard } from "./TaskCard";
-import { DragDropUtil } from "@/utils/dragDrop";
+import { DragDropUtil } from "@/utils/utils";
 
 interface KanbanColumnProps {
   status: TaskStatus;
@@ -10,10 +10,6 @@ interface KanbanColumnProps {
   tasks: Task[];
   onTaskDrop: (taskId: string, newStatus: TaskStatus) => void;
 }
-
-/**
- * Kanban column component that handles drag and drop operations
- */
 export const KanbanColumn = ({ status, title, tasks, onTaskDrop }: KanbanColumnProps) => {
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     DragDropUtil.handleDragOver(event);

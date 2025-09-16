@@ -1,16 +1,13 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Task } from "@/types/kanban";
-import { DragDropUtil } from "@/utils/dragDrop";
+import { DragDropUtil } from "@/utils/utils";
 import { GripVertical, Calendar } from "lucide-react";
 
 interface TaskCardProps {
   task: Task;
 }
 
-/**
- * Individual task card component with drag functionality
- */
 export const TaskCard = ({ task }: TaskCardProps) => {
   const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
     DragDropUtil.handleDragStart(event, task.id);
